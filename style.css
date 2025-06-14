@@ -27,6 +27,7 @@ body {
 /* Image inside banner */
 #banner img {
   vertical-align: middle;
+  margin-right: 10px;
 }
 
 /* Table layout */
