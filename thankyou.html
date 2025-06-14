@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="banner">
+  <img src="logo.png" alt="Medical Logo" width="50">
+  <h1>We'R'Docs Medical</h1>
+  <p id="dateDisplay"></p>
+</div>
+
+<h2 style="text-align:center; margin-top: 50px;">Thank you for your submission.</h2>
+
+<div class="footer">
+  <p>We'R'Docs Medical | <a href="#">Contact Us</a> | PO BOX 18881 Sugar Land, TX 77496</p>
+</div>
+
+<script>
+  // Add dynamic date here too
+  const today = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('dateDisplay').innerText = today.toLocaleDateString('en-US', options);
+</script>
+
+</body>
+</html>
