@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Intake Form</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function displayDate() {
+      const today = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('dateDisplay').innerText = today.toLocaleDateString('en-US', options);
+    }
+  </script>
+</head>
+<body onload="displayDate()">
+
+<!--
+Program name: patient-form.html
+Author: Kenny Kretschmer
+Date created: 2025-06-13
+Date last edited: 2025-06-13
+Version: 1.0
+Description: Patient registration form capturing demographic info.
+-->
+
+<div id="banner">
+  <img src="logo.png" alt="Medical Logo" width="50">
+  <h1>We'R'Docs Medical</h1>
+  <p id="dateDisplay"></p>
+</div>
+
+<form action="thankyou.html">
+  <table>
+    <tr>
+      <td>Username:</td>
+      <td><input type="text" name="username" maxlength="20" required></td>
+    </tr>
+    <tr>
+      <td>Password:</td>
+      <td><input type="password" name="password" minlength="8" maxlength="32" required></td>
+    </tr>
+    <tr>
+      <td>Verify Password:</td>
+      <td><input type="password" name="verifyPassword" minlength="8" maxlength="32" required></td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td><input type="email" name="email" required></td>
+    </tr>
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" name="name" maxlength="50" required></td>
+    </tr>
+    <tr>
+      <td>Date of Birth:</td>
+      <td><input type="text" name="dob" placeholder="MM/DD/YYYY" required></td>
+    </tr>
+    <tr>
+      <td>Sex:</td>
+      <td>
+        <input type="radio" name="sex" value="male"> Male
+        <input type="radio" name="sex" value="female"> Female
+        <input type="radio" name="sex" value="other"> Other
+        <input type="radio" name="sex" value="na"> Prefer not to answer
+      </td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td><input type="text" name="address" maxlength="50" required></td>
+    </tr>
+    <tr>
+      <td>City:</td>
+      <td><input type="text" name="city" maxlength="50" required></td>
+    </tr>
+    <tr>
+      <td>State:</td>
+      <td>
+        <select name="state" required>
+          <option value="">--Select--</option>
+          <option value="TX">TX</option>
+          <option value="CA">CA</option>
+          <option value="NY">NY</option>
+          <!-- add all states here -->
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Country:</td>
+      <td>
+        <select name="country" required>
+          <option value="">--Select--</option>
+          <option value="USA">USA</option>
+          <option value="Canada">Canada</option>
+          <option value="Mexico">Mexico</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Language:</td>
+      <td>
+        <input type="radio" name="language" value="english"> English
+        <input type="radio" name="language" value="other"> Other
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align:center;">
+        <input type="submit" value="Submit">
+        <input type="reset" value="Clear and Start Over">
+      </td>
+    </tr>
+  </table>
+</form>
+
+<div class="footer">
+  <p>We'R'Docs Medical | <a href="#">Contact Us</a> | PO BOX 18881 Sugar Land, TX 77496</p>
+</div>
+
+<!-- End of patient-form.html -->
+</body>
+</html>
