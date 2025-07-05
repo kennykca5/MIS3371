@@ -1,38 +1,6 @@
 
 ...
-// salary slider live update
-const salarySlider = document.querySelector('input[name="salary"]');
-const salaryOutput = document.getElementById('salaryValue');
 
-// initial value
-salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
-
-// live update
-salarySlider.addEventListener("input", () => {
-    const val = parseInt(salarySlider.value, 10);
-    salaryOutput.textContent = `$${val.toLocaleString()}`;
-});
-
-// salary validation inside reviewForm:
-function reviewForm() {
-    // validate salary
-    const salary = parseInt(document.querySelector('input[name="salary"]').value, 10);
-    if (salary < 20000 || salary > 200000) {
-        alert("Salary must be between $20,000 and $200,000.");
-        return;
-    }
-
-    // add to review
-    let reviewContent = `
-      <table border="1" style="width: 100%; border-collapse: collapse;">
-        <tr><th>Field</th><th>Value</th><th>Status</th></tr>
-        <tr><td>Desired Salary</td><td>$${salary.toLocaleString()}</td><td>✅</td></tr>
-        <!-- the rest of your fields -->
-      </table>
-    `;
-
-    document.getElementById("reviewContent").innerHTML = reviewContent;
-}
   // date of birth validation
 const dobField = document.querySelector('input[name="dob"]');
 const dobError = document.createElement("div");
@@ -625,6 +593,40 @@ salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
 salarySlider.addEventListener('input', () => {
   salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
 });
+
+// salary slider live update
+const salarySlider = document.querySelector('input[name="salary"]');
+const salaryOutput = document.getElementById('salaryValue');
+
+// initial value
+salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
+
+// live update
+salarySlider.addEventListener("input", () => {
+    const val = parseInt(salarySlider.value, 10);
+    salaryOutput.textContent = `$${val.toLocaleString()}`;
+});
+
+// salary validation inside reviewForm:
+function reviewForm() {
+    // validate salary
+    const salary = parseInt(document.querySelector('input[name="salary"]').value, 10);
+    if (salary < 20000 || salary > 200000) {
+        alert("Salary must be between $20,000 and $200,000.");
+        return;
+    }
+
+    // add to review
+    let reviewContent = `
+      <table border="1" style="width: 100%; border-collapse: collapse;">
+        <tr><th>Field</th><th>Value</th><th>Status</th></tr>
+        <tr><td>Desired Salary</td><td>$${salary.toLocaleString()}</td><td>✅</td></tr>
+        <!-- the rest of your fields -->
+      </table>
+    `;
+
+    document.getElementById("reviewContent").innerHTML = reviewContent;
+}
 
 // password validator function — OUTSIDE the DOMContentLoaded
 function validatePasswords() {
