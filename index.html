@@ -71,36 +71,48 @@ Description: Patient registration form capturing demographic info.
       </td>
     </tr>
     <tr>
+  <td>Vaccinated:</td>
+  <td>
+    <input type="radio" name="vaccinated" value="yes"> Yes
+    <input type="radio" name="vaccinated" value="no"> No
+  </td>
+</tr>
+    <tr>
+  <td>Do you have insurance?</td>
+  <td>
+    <input type="radio" name="insurance" value="yes"> Yes
+    <input type="radio" name="insurance" value="no"> No
+  </td>
+</tr>
+    <tr>
       <td>Address:</td>
       <td><input type="text" name="address" maxlength="50" required></td>
     </tr>
-    <tr>
-      <td>City:</td>
-      <td><input type="text" name="city" maxlength="50" required></td>
-    </tr>
-    <tr>
-      <td>State:</td>
-      <td>
-        <select name="state" required>
-          <option value="">--Select--</option>
-          <option value="TX">TX</option>
-          <option value="CA">CA</option>
-          <option value="NY">NY</option>
-          <!-- add all states here -->
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>Country:</td>
-      <td>
-        <select name="country" required>
-          <option value="">--Select--</option>
-          <option value="USA">USA</option>
-          <option value="Canada">Canada</option>
-          <option value="Mexico">Mexico</option>
-        </select>
-      </td>
-    </tr>
+ <tr>
+  <td>City:</td>
+  <td><input type="text" name="city" maxlength="30" required></td>
+</tr>
+<tr>
+  <td>State:</td>
+  <td>
+    <select name="state" required>
+      <option value="">--Select--</option>
+      <option value="AL">Alabama</option>
+      <option value="AK">Alaska</option>
+      <option value="AZ">Arizona</option>
+      <option value="AR">Arkansas</option>
+      <option value="CA">California</option
+      <option value="TX">Texas</option>
+      <option value="NY">New York</option>
+      <option value="DC">District of Columbia</option>
+      <option value="PR">Puerto Rico</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td>Zip Code:</td>
+  <td><input type="text" name="zip" maxlength="10" placeholder="12345" required></td>
+</tr>
     <tr>
       <td>Language:</td>
       <td>
@@ -114,6 +126,20 @@ Description: Patient registration form capturing demographic info.
         <input type="reset" value="Clear and Start Over">
       </td>
     </tr>
+    <tr>
+  <td>Check all conditions that apply:</td>
+  <td>
+    <input type="checkbox" name="conditions" value="diabetes"> Diabetes
+    <input type="checkbox" name="conditions" value="hypertension"> Hypertension
+    <input type="checkbox" name="conditions" value="asthma"> Asthma
+    <input type="checkbox" name="conditions" value="covid"> COVID-19
+    <input type="checkbox" name="conditions" value="allergies"> Allergies
+  </td>
+</tr>
+    <tr>
+  <td>On a scale of 1–10, how is your health?</td>
+  <td><input type="range" name="health" min="1" max="10"></td>
+</tr>
   </table>
 </form>
 
