@@ -1,18 +1,37 @@
 // script.js for Homework 2
 
 function reviewForm() {
-  // collect form values
-  function reviewForm() {
+  // validate passwords first
   if (!validatePasswords()) {
     return;  // cancel if password fails
   }
 
-  // existing review code here
-}
+  // validate DOB range
+  const dob = document.querySelector('input[name="dob"]').value;
+  const dobParts = dob.split("/");
+  if (dobParts.length === 3) {
+    const month = parseInt(dobParts[0], 10);
+    const day = parseInt(dobParts[1], 10);
+    const year = parseInt(dobParts[2], 10);
+
+    const dobDate = new Date(year, month - 1, day);
+    const today = new Date();
+    const oldest = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate());
+
+    if (dobDate > today) {
+      alert("Date of birth cannot be in the future.");
+      return;
+    }
+    if (dobDate < oldest) {
+      alert("Date of birth cannot be more than 120 years ago.");
+      return;
+    }
+  }
+
+  // collect other form values
   let firstName = document.querySelector('input[name="firstName"]').value;
   let lastName = document.querySelector('input[name="lastName"]').value;
   let email = document.querySelector('input[name="email"]').value;
-  let dob = document.querySelector('input[name="dob"]').value;
 
   let reviewContent = `
     <p><strong>First Name:</strong> ${firstName}</p>
