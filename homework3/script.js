@@ -1,169 +1,242 @@
-document.addEventListener("DOMContentLoaded", function() {
+// script.js
+document.addEventListener("DOMContentLoaded", () => {
+  // utility to show/clear errors
+  function setError(id, message) {
+    document.getElementById(id).textContent = message;
+  }
 
-  // salary slider
-  const salarySlider = document.querySelector('input[name="salary"]');
-  const salaryOutput = document.getElementById('salaryValue');
-  salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
-  salarySlider.addEventListener("input", function() {
-    salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
-  });
-
-  // health slider
-  const healthSlider = document.querySelector('input[name="health"]');
-  const healthOutput = document.getElementById('healthValue');
-  healthOutput.textContent = healthSlider.value;
-  healthSlider.addEventListener("input", function() {
-    healthOutput.textContent = healthSlider.value;
-  });
-
-  // password validation function
-  window.validatePasswords = function() {
-    const password = document.querySelector('input[name="password"]').value;
-    const verifyPassword = document.querySelector('input[name="verifyPassword"]').value;
-    const userID = document.querySelector('input[name="userID"]').value;
-
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#%^&*()\-_=+\\\/><.,`~]).{8,30}$/;
-
-    if (!pattern.test(password)) {
-      alert("Password must be 8–30 chars, include uppercase, lowercase, number, and a special character (no quotes).");
+  // field validators
+  function validateUserID() {
+    const f = document.getElementById("userID");
+    const re = /^[A-Za-z][A-Za-z0-9_-]{4,29}$/;
+    if (!re.test(f.value)) {
+      setError("userIDError", "Must start with letter; 5–30 chars; letters, digits, dash/underscore only");
       return false;
     }
-    if (password.includes('"') || password.includes("'")) {
-      alert("Password cannot contain quotes.");
-      return false;
-    }
-    if (password.toLowerCase().includes(userID.toLowerCase())) {
-      alert("Password cannot contain your user ID.");
-      return false;
-    }
-    if (password !== verifyPassword) {
-      alert("Passwords do not match.");
-      return false;
-    }
+    setError("userIDError", "");
     return true;
   }
 
-  // dob validation
-  const dobField = document.querySelector('input[name="dob"]');
-  const dobError = document.createElement("div");
-  dobError.style.color = "red";
-  dobField.parentNode.appendChild(dobError);
-  dobField.addEventListener("blur", function() {
-    const value = dobField.value;
-    const pattern = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d\d$/;
-    if (!pattern.test(value)) {
-      dobError.textContent = "Use MM/DD/YYYY format.";
-      return;
+  function validatePassword() {
+    const pw = document.getElementById("password").value;
+    const id = document.getElementById("userID").value.toLowerCase();
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#%^&*()\-_=+\\\/><.,`~]).{8,32}$/;
+    if (!re.test(pw)) {
+      setError("passwordError", "8–32 chars; include upper, lower, digit, special");
+      return false;
     }
-    const [month, day, year] = value.split("/").map(Number);
-    const dobDate = new Date(year, month - 1, day);
+    if (pw.toLowerCase().includes(id)) {
+      setError("passwordError", "Cannot contain your User ID");
+      return false;
+    }
+    setError("passwordError", "");
+    return true;
+  }
+
+  function validateVerifyPassword() {
+    const pw = document.getElementById("password").value;
+    const vp = document.getElementById("verifyPassword").value;
+    if (pw !== vp) {
+      setError("verifyPasswordError", "Passwords do not match");
+      return false;
+    }
+    setError("verifyPasswordError", "");
+    return true;
+  }
+
+  function validateEmail() {
+    const f = document.getElementById("email");
+    if (f.value === "" || !f.checkValidity()) {
+      setError("emailError", "Enter a valid email");
+      return false;
+    }
+    setError("emailError", "");
+    return true;
+  }
+
+  function validatePhone() {
+    const f = document.getElementById("phone");
+    if (f.value && !f.checkValidity()) {
+      setError("phoneError", "000-000-0000 format");
+      return false;
+    }
+    setError("phoneError", "");
+    return true;
+  }
+
+  function validateName(id, errId) {
+    const f = document.getElementById(id);
+    if (!f.checkValidity()) {
+      setError(errId, f.title);
+      return false;
+    }
+    setError(errId, "");
+    return true;
+  }
+
+  function validateDOB() {
+    const f = document.getElementById("dob");
+    const val = f.value;
+    const re = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d\d$/;
+    if (!re.test(val)) {
+      setError("dobError", "Use MM/DD/YYYY");
+      return false;
+    }
+    const [m,d,y] = val.split("/").map(Number);
+    const dob = new Date(y,m-1,d);
     const today = new Date();
-    const oldest = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate());
-    if (dobDate > today) {
-      dobError.textContent = "Cannot be in the future.";
-    } else if (dobDate < oldest) {
-      dobError.textContent = "Cannot be more than 120 years ago.";
+    const oldest = new Date(today.getFullYear()-120, today.getMonth(), today.getDate());
+    if (dob>today) {
+      setError("dobError","Cannot be in the future");
+      return false;
+    }
+    if (dob<oldest) {
+      setError("dobError","Cannot be >120 yrs ago");
+      return false;
+    }
+    setError("dobError","");
+    return true;
+  }
+
+  function validateRadio(name, errId) {
+    if (!document.querySelector(`input[name="${name}"]:checked`)) {
+      setError(errId, "Please select one");
+      return false;
+    }
+    setError(errId, "");
+    return true;
+  }
+
+  function validateCheckboxes() {
+    const checked = document.querySelectorAll('input[name="conditions"]:checked');
+    if (checked.length < 1) {
+      setError("conditionsError", "Select at least one");
+      return false;
+    }
+    setError("conditionsError", "");
+    return true;
+  }
+
+  function validateSelect(id, errId) {
+    const f = document.getElementById(id);
+    if (!f.value) {
+      setError(errId, "Please choose one");
+      return false;
+    }
+    setError(errId, "");
+    return true;
+  }
+
+  function validateText(id, errId, optional=false, min=0, max=999) {
+    const f = document.getElementById(id);
+    if (!optional && f.value.trim()==="") {
+      setError(errId, "Required");
+      return false;
+    }
+    if (f.value && (f.value.length < min || f.value.length > max)) {
+      setError(errId, `Must be ${min}-${max} chars`);
+      return false;
+    }
+    setError(errId, "");
+    return true;
+  }
+
+  // slider displays
+  const salary = document.getElementById("salary"),
+        salaryValue = document.getElementById("salaryValue");
+  salaryValue.textContent = `$${Number(salary.value).toLocaleString()}`;
+  salary.addEventListener("input", () => {
+    salaryValue.textContent = `$${Number(salary.value).toLocaleString()}`;
+  });
+
+  const health = document.getElementById("health"),
+        healthValue = document.getElementById("healthValue");
+  healthValue.textContent = health.value;
+  health.addEventListener("input", () => {
+    healthValue.textContent = health.value;
+  });
+
+  // wire up on-the-fly
+  document.getElementById("userID").addEventListener("blur", validateUserID);
+  document.getElementById("password").addEventListener("blur", validatePassword);
+  document.getElementById("verifyPassword").addEventListener("blur", validateVerifyPassword);
+  document.getElementById("email").addEventListener("blur", validateEmail);
+  document.getElementById("phone").addEventListener("blur", validatePhone);
+  ["firstName","middleInitial","lastName"].forEach(id => {
+    document.getElementById(id).addEventListener("blur", () =>
+      validateName(id, id + "Error")
+    );
+  });
+  document.getElementById("dob").addEventListener("blur", validateDOB);
+  ["sex","vaccinated","insurance","language"].forEach(rname => {
+    document.querySelectorAll(`input[name="${rname}"]`)
+      .forEach(input => input.addEventListener("change", () => validateRadio(rname, rname + "Error")));
+  });
+  document.querySelectorAll('input[name="conditions"]').forEach(cb =>
+    cb.addEventListener("change", validateCheckboxes)
+  );
+  document.getElementById("address").addEventListener("blur", () =>
+    validateText("address", "addressError", false, 2, 30)
+  );
+  document.getElementById("address2").addEventListener("blur", () =>
+    validateText("address2", "address2Error", true, 2, 30)
+  );
+  document.getElementById("city").addEventListener("blur", () =>
+    validateText("city", "cityError", false, 2, 30)
+  );
+  document.getElementById("state").addEventListener("change", () =>
+    validateSelect("state", "stateError")
+  );
+  document.getElementById("zip").addEventListener("blur", () =>
+    validateText("zip", "zipError", false, 5, 10)
+  );
+  document.getElementById("comments").addEventListener("blur", () =>
+    validateText("comments", "commentsError", true, 0, 500)
+  );
+
+  // Validate all then enable submit
+  document.getElementById("validateBtn").addEventListener("click", () => {
+    const checks = [
+      validateUserID(),
+      validatePassword(),
+      validateVerifyPassword(),
+      validateEmail(),
+      validatePhone(),
+      validateName("firstName","firstNameError"),
+      validateName("middleInitial","middleInitialError"),
+      validateName("lastName","lastNameError"),
+      validateDOB(),
+      validateRadio("sex","sexError"),
+      validateText("ssn","ssnError",false,11,11),
+      validateRadio("vaccinated","vaccinatedError"),
+      validateRadio("insurance","insuranceError"),
+      validateText("address","addressError",false,2,30),
+      validateText("address2","address2Error",true,2,30),
+      validateText("city","cityError",false,2,30),
+      validateSelect("state","stateError"),
+      validateText("zip","zipError",false,5,10),
+      validateRadio("language","languageError"),
+      validateCheckboxes(),
+      // comments optional
+      validateText("comments","commentsError",true,0,500)
+    ];
+
+    if (checks.every(v=>v===true)) {
+      document.getElementById("submitBtn").disabled = false;
+      // optionally reveal review pane
+      document.getElementById("reviewArea").style.display = "block";
+      // build a quick review table if desired...
     } else {
-      dobError.textContent = "";
+      document.getElementById("submitBtn").disabled = true;
+      document.getElementById("reviewArea").style.display = "none";
     }
   });
 
-  // SSN validation
-  const ssnField = document.querySelector('input[name="ssn"]');
-  const ssnError = document.createElement("div");
-  ssnError.style.color = "red";
-  ssnField.parentNode.appendChild(ssnError);
-  ssnField.addEventListener("input", function() {
-    let digits = ssnField.value.replace(/\D/g, "");
-    if (digits.length > 9) digits = digits.slice(0, 9);
-    if (digits.length > 5) {
-      ssnField.value = `${digits.slice(0,3)}-${digits.slice(3,5)}-${digits.slice(5)}`;
-    } else if (digits.length > 3) {
-      ssnField.value = `${digits.slice(0,3)}-${digits.slice(3)}`;
-    } else {
-      ssnField.value = digits;
+  // Prevent real submission if still invalid
+  document.getElementById("intakeForm").addEventListener("submit", e => {
+    if (document.getElementById("submitBtn").disabled) {
+      e.preventDefault();
+      alert("Fix errors before submitting.");
     }
-  });
-  ssnField.addEventListener("blur", function() {
-    if (!/^\d{3}-\d{2}-\d{4}$/.test(ssnField.value)) {
-      ssnError.textContent = "Use XXX-XX-XXXX format.";
-    } else {
-      ssnError.textContent = "";
-    }
-  });
-
-  // review button handler
-  document.getElementById("reviewBtn").addEventListener("click", function() {
-    const salary = parseInt(salarySlider.value, 10);
-    if (salary < 20000 || salary > 200000) {
-      alert("Salary must be between $20,000 and $200,000.");
-      return;
-    }
-
-    const sex = document.querySelector('input[name="sex"]:checked');
-    if (!sex) {
-      alert("Please select your sex.");
-      return;
-    }
-    const vaccinated = document.querySelector('input[name="vaccinated"]:checked');
-    if (!vaccinated) {
-      alert("Please select vaccination status.");
-      return;
-    }
-    const insurance = document.querySelector('input[name="insurance"]:checked');
-    if (!insurance) {
-      alert("Please indicate insurance.");
-      return;
-    }
-    const language = document.querySelector('input[name="language"]:checked');
-    if (!language) {
-      alert("Please select language.");
-      return;
-    }
-    const checkedConditions = document.querySelectorAll('input[name="conditions"]:checked');
-    if (checkedConditions.length === 0) {
-      alert("Select at least one condition.");
-      return;
-    }
-
-    // build review
-    const dob = dobField.value;
-    const health = healthSlider.value;
-    const password = document.querySelector('input[name="password"]').value.replace(/./g, "*");
-    const firstName = document.querySelector('input[name="firstName"]').value;
-    const lastName = document.querySelector('input[name="lastName"]').value;
-    const userID = document.querySelector('input[name="userID"]').value;
-    const email = document.querySelector('input[name="email"]').value;
-    const phone = document.querySelector('input[name="phone"]').value;
-    const address = document.querySelector('input[name="address"]').value;
-    const city = document.querySelector('input[name="city"]').value;
-    const state = document.querySelector('select[name="state"]').value;
-    const zip = document.querySelector('input[name="zip"]').value;
-    const conditions = Array.from(checkedConditions).map(el => el.value).join(", ");
-
-    let reviewContent = `
-      <table border="1" style="width:100%;border-collapse:collapse;">
-        <tr><th>Field</th><th>Value</th></tr>
-        <tr><td>First Name</td><td>${firstName}</td></tr>
-        <tr><td>Last Name</td><td>${lastName}</td></tr>
-        <tr><td>User ID</td><td>${userID}</td></tr>
-        <tr><td>Password</td><td>${password}</td></tr>
-        <tr><td>Email</td><td>${email}</td></tr>
-        <tr><td>Phone</td><td>${phone}</td></tr>
-        <tr><td>Date of Birth</td><td>${dob}</td></tr>
-        <tr><td>Sex</td><td>${sex.value}</td></tr>
-        <tr><td>Vaccinated</td><td>${vaccinated.value}</td></tr>
-        <tr><td>Insurance</td><td>${insurance.value}</td></tr>
-        <tr><td>Address</td><td>${address}</td></tr>
-        <tr><td>City</td><td>${city}</td></tr>
-        <tr><td>State</td><td>${state}</td></tr>
-        <tr><td>Zip</td><td>${zip}</td></tr>
-        <tr><td>Language</td><td>${language.value}</td></tr>
-        <tr><td>Health</td><td>${health}</td></tr>
-        <tr><td>Conditions</td><td>${conditions}</td></tr>
-        <tr><td>Salary</td><td>$${salary.toLocaleString()}</td></tr>
-      </table>
-    `;
-    document.getElementById("reviewContent").innerHTML = reviewContent;
   });
 });
