@@ -34,12 +34,34 @@ function reviewForm() {
   let email = document.querySelector('input[name="email"]').value;
 
   let reviewContent = `
-    <p><strong>First Name:</strong> ${firstName}</p>
-    <p><strong>Last Name:</strong> ${lastName}</p>
-    <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Date of Birth:</strong> ${dob}</p>
-  `;
-
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>First Name</td>
+      <td>${firstName}</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Last Name</td>
+      <td>${lastName}</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>${email}</td>
+      <td>✅</td>
+    </tr>
+    <tr>
+      <td>Date of Birth</td>
+      <td>${dob}</td>
+      <td>✅</td>
+    </tr>
+  </table>
+`;
   document.getElementById('reviewContent').innerHTML = reviewContent;
 }
 
