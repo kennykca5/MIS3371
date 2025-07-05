@@ -1,0 +1,94 @@
+/*
+Filename: style.css
+Author: Kenneth Kretschmer
+Date created: 2025-06-13
+Date last edited: 2025-06-13
+Version: 1.0
+Description: External stylesheet for MIS3371 Homework 1
+*/
+
+/* Tag selector */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f9ff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* ID selector */
+#banner {
+  background-color: #004080;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Image inside banner */
+#banner img {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* Table layout */
+table {
+  margin: 20px auto;
+  border-collapse: separate;
+  border-spacing: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
+input[type="submit"],
+input[type="reset"] {
+  padding: 8px 16px;
+  margin: 10px 5px;
+  border: none;
+  background-color: #0077cc;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background-color: #005fa3;
+}
+
+/* Footer class selector */
+.footer {
+  text-align: center;
+  font-size: 0.9em;
+  padding: 10px;
+  background-color: #e6e6e6;
+  margin-top: 30px;
+}
+
+/* Link styling */
+a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Name-based selector */
+input[name="username"] {
+  font-weight: bold;
+}
