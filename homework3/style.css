@@ -2,9 +2,9 @@
 Filename: style.css
 Author: Kenneth Kretschmer
 Date created: 2025-06-13
-Date last edited: 2025-06-13
-Version: 1.0
-Description: External stylesheet for MIS3371 Homework 1
+Date last edited: 2025-07-05
+Version: 1.1
+Description: External stylesheet for MIS3371 Homework 3 – includes validation UX support
 */
 
 /* Tag selector */
@@ -16,15 +16,13 @@ body {
   padding: 0;
 }
 
-/* ID selector */
+/* Banner */
 #banner {
   background-color: #004080;
   color: white;
   text-align: center;
   padding: 20px;
 }
-
-/* Image inside banner */
 #banner img {
   vertical-align: middle;
   margin-right: 10px;
@@ -40,36 +38,78 @@ table {
   border-radius: 10px;
   box-shadow: 0 0 10px #ccc;
 }
+td {
+  vertical-align: top;
+}
 
 /* Form inputs */
 input[type="text"],
 input[type="password"],
 input[type="email"],
-select {
+input[type="number"],
+select,
+textarea {
   width: 100%;
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Range slider */
+input[type="range"] {
+  width: 100%;
+}
+.slider-value {
+  font-weight: bold;
+  margin-left: 8px;
 }
 
 /* Buttons */
 input[type="submit"],
-input[type="reset"] {
+input[type="reset"],
+input[type="button"],
+button,
+.form-button {
   padding: 8px 16px;
   margin: 10px 5px;
   border: none;
-  background-color: #0077cc;
+  background-color: #006699;
   color: white;
   cursor: pointer;
   border-radius: 4px;
+  font-size: 1em;
 }
-
 input[type="submit"]:hover,
-input[type="reset"]:hover {
-  background-color: #005fa3;
+input[type="reset"]:hover,
+input[type="button"]:hover,
+button:hover,
+.form-button:hover {
+  background-color: #004466;
+}
+button:disabled,
+input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-/* Footer class selector */
+/* Disabled form controls */
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #e9e9e9;
+  color: #666;
+}
+
+/* Error messages */
+.error {
+  color: #c00;
+  font-size: 0.9em;
+  min-height: 1.2em;  /* reserve vertical space */
+  margin-top: 4px;
+}
+
+/* Footer */
 .footer {
   text-align: center;
   font-size: 0.9em;
@@ -78,31 +118,16 @@ input[type="reset"]:hover {
   margin-top: 30px;
 }
 
-/* Link styling */
+/* Links */
 a {
   color: #0077cc;
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }
 
-/* Name-based selector */
+/* Field-specific styling */
 input[name="username"] {
   font-weight: bold;
-}
-
-/* Form button */
-.form-button {
-  background-color: #006699;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.form-button:hover {
-  background-color: #004466;
 }
