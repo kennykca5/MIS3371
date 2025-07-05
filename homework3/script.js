@@ -19,6 +19,11 @@ dobField.addEventListener("blur", function() {
         return;
     }
 
+  if (salary < 20000 || salary > 200000) {
+  alert("Desired salary must be between $20,000 and $200,000.");
+  return;
+}
+  
     // validate reasonable date
     const [month, day, year] = value.split("/").map(Number);
     const dobDate = new Date(year, month - 1, day);
