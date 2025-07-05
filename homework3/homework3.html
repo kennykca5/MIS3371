@@ -218,6 +218,19 @@ Description: Patient registration form capturing demographic info.
   <span id="healthValue"></span>
 </td>
 </tr>
+    <tr>
+  <td>Desired Salary:</td>
+  <td>
+    <input type="range" name="salary" min="20000" max="200000" step="1000" value="60000">
+    <span id="salaryValue">$60,000</span>
+  </td>
+<tr><td>Desired Salary</td><td>$${parseInt(salary).toLocaleString()}</td><td>✅</td></tr>
+    <tr>
+  <td>Additional Comments:</td>
+  <td>
+    <textarea name="comments" rows="4" cols="40" placeholder="Enter any other health concerns or comments"></textarea>
+  </td>
+</tr>D
   </table>
 </form>
   <div id="reviewArea" style="border: 1px solid #ccc; margin-top: 20px; padding: 10px;">
@@ -230,6 +243,13 @@ Description: Patient registration form capturing demographic info.
 <div class="footer">
   <p>Serene Solutions Recovery | <button onclick="window.location.href='mailto:admin@serenesolutions.org'">Contact Us</button> | 2825 Hancock Drive, Austin TX 78731 </p>
 </div>
+
+  <tr>
+  <td>Comments:</td>
+  <td>
+    <textarea name="comments" rows="4" cols="40" placeholder="Tell us anything you want to share..."></textarea>
+  </td>
+</tr>
 
 <!-- End of patient-form.html -->
 <script src="script.js"></script>
