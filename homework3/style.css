@@ -128,6 +128,6 @@ a:hover {
 }
 
 /* Field-specific styling */
-input[name="username"] {
+input[name="userID"] {
   font-weight: bold;
 }
