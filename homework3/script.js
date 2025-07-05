@@ -1,39 +1,7 @@
-// script.js for Homework 3
 
-function reviewForm() {
-  // validate passwords first
-  if (!validatePasswords()) {
-    return;  // cancel if password fails
-  }
+...
 
-  // validate DOB range
-  const dob = document.querySelector('input[name="dob"]').value;
-  const dobParts = dob.split("/");
-  if (dobParts.length === 3) {
-    const month = parseInt(dobParts[0], 10);
-    const day = parseInt(dobParts[1], 10);
-    const year = parseInt(dobParts[2], 10);
-
-    const dobDate = new Date(year, month - 1, day);
-    const today = new Date();
-    const oldest = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate());
-
-    if (dobDate > today) {
-      alert("Date of birth cannot be in the future.");
-      return;
-    }
-    if (dobDate < oldest) {
-      alert("Date of birth cannot be more than 120 years ago.");
-      return;
-    }
-  }
-  // reviewform
-const health = parseInt(document.querySelector('input[name="health"]').value, 10);
-if (health < 1 || health > 10) {
-  alert("Health slider must be between 1 and 10.");
-  return;
-}
-  
+<tr><td>Desired Salary</td><td>$${parseInt(salary).toLocaleString()}</td><td>✅</td></tr>
   // date of birth validation
 const dobField = document.querySelector('input[name="dob"]');
 const dobError = document.createElement("div");
@@ -249,7 +217,8 @@ lastNameField.addEventListener("blur", function() {
         lastNameError.textContent = "Last name must be 1–30 characters, letters, apostrophes, dashes, or numbers 2–5 only.";
     } else {
         lastNameError.textContent = "";
-    }
+    }d
+  
 });
 
   // DOB validation
@@ -595,6 +564,35 @@ healthSlider.addEventListener("input", function() {
   } else {
     healthError.textContent = "";
   }
+});
+
+let comments = document.querySelector('textarea[name="comments"]').value.trim();
+
+// comments textarea validation
+const commentsField = document.querySelector('textarea[name="comments"]');
+const commentsError = document.createElement("div");
+commentsError.style.color = "red";
+commentsError.style.fontSize = "0.9em";
+commentsError.id = "commentsError";
+commentsField.parentNode.appendChild(commentsError);
+
+commentsField.addEventListener("blur", function() {
+    const value = commentsField.value.trim();
+    // optional, but if they typed something, check for printable characters
+    if (value.length > 0 && !/^[\w\s.,'\"!?-]{2,300}$/.test(value)) {
+        commentsError.textContent = "Comments may only contain letters, numbers, punctuation, and be 2–300 characters.";
+    } else {
+        commentsError.textContent = "";
+    }
+});
+
+// desired salary slider
+const salarySlider = document.querySelector('input[name="salary"]');
+const salaryOutput = document.getElementById('salaryValue');
+salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
+
+salarySlider.addEventListener('input', () => {
+  salaryOutput.textContent = `$${parseInt(salarySlider.value).toLocaleString()}`;
 });
 
 // password validator function — OUTSIDE the DOMContentLoaded
