@@ -32,8 +32,10 @@ Description: Patient registration form capturing demographic info.
 <form action="thankyou.html">
   <table>
     <tr>
-      <td>Username:</td>
-      <td><input type="text" name="username" maxlength="20" required></td>
+      <td>User ID:</td>
+      <td><input type="text" name="userID" maxlength="30" required
+  pattern="^[a-zA-Z][a-zA-Z0-9_-]{4,29}$"
+  title="5–30 characters, letters, numbers, dash/underscore, must start with a letter"></td>
     </tr>
     <tr>
       <td>Password:</td>
@@ -45,21 +47,33 @@ Description: Patient registration form capturing demographic info.
     </tr>
     <tr>
       <td>Email:</td>
-      <td><input type="email" name="email" required></td>
+      <td><input type="email" name="email" required
+  title="Enter a valid email like name@domain.com"></td>
+  </tr>
+  <tr>
+    <td>Phone Number:</td>
+    <td><input type="tel" name="phone"
+  pattern="\d{3}-\d{3}-\d{4}"
+  placeholder="000-000-0000"
+  title="Phone number in format 000-000-0000"></td>
   <tr>
   <td>First Name:</td>
-  <td><input type="text" name="firstName" maxlength="30" required></td>
+  <td><input type="text" name="firstName" maxlength="30" required
+  title="First name (letters, apostrophes, and dashes only)"></td>
 </tr>
 <tr>
   <td>Middle Initial:</td>
-  <td><input type="text" name="middleInitial" maxlength="1"></td>
+  <td><input type="text" name="middleInitial" maxlength="1"
+  title="Middle initial (one letter only)"></td>
 </tr>
 <tr>
   <td>Last Name:</td>
-  <td><input type="text" name="lastName" maxlength="30" required></td>
+  <td><input type="text" name="lastName" maxlength="30" required
+  title="Last name (letters, dashes, apostrophes, and optional numbers 2-5)"></td>
 </tr>
       <td>Date of Birth:</td>
-      <td><input type="text" name="dob" placeholder="MM/DD/YYYY" required></td>
+      <td><input type="text" name="dob" placeholder="MM/DD/YYYY" required
+  title="Date of birth in MM/DD/YYYY format"></td>
     </tr>
     <tr>
       <td>Sex:</td>
@@ -160,7 +174,9 @@ Description: Patient registration form capturing demographic info.
 </tr>
 <tr>
   <td>Zip Code:</td>
-  <td><input type="text" name="zip" maxlength="10" placeholder="12345" required></td>
+  <td><input type="text" name="zip" maxlength="10"
+  pattern="\d{5}(-\d{4})?"
+  title="5-digit ZIP or ZIP+4, e.g. 77002 or 77002-1234"></td>
 </tr>
     <tr>
       <td>Language:</td>
