@@ -60,17 +60,20 @@ Description: Patient registration form capturing demographic info.
   <tr>
   <td>First Name:</td>
   <td><input type="text" name="firstName" maxlength="30" required
+  pattern="^[A-Za-z'-]{1,30}$"
   title="First name (letters, apostrophes, and dashes only)"></td>
 </tr>
 <tr>
   <td>Middle Initial:</td>
   <td><input type="text" name="middleInitial" maxlength="1"
-  title="Middle initial (one letter only)"></td>
+  pattern="^[A-Za-z]?$"
+  title="Middle initial (one letter only, optional)"></td>
 </tr>
 <tr>
   <td>Last Name:</td>
   <td><input type="text" name="lastName" maxlength="30" required
-  title="Last name (letters, dashes, apostrophes, and optional numbers 2-5)"></td>
+  pattern="^[A-Za-z2-5'-]{1,30}$"
+  title="Last name (letters, dashes, apostrophes, and optional numbers 2–5)"></td>
 </tr>
       <td>Date of Birth:</td>
       <td><input type="text" name="dob" placeholder="MM/DD/YYYY" required
